@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>new blog</title>
+    <link rel="stylesheet" href="/static/css/uikit.min.css">
+    <link rel="stylesheet" href="/static/css/uikit.gradient.min.css">
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+    <script src="/static/js/sha1.min.js"></script>
+    <script src="/static/js/uikit.min.js"></script>
+    <script src="/static/js/vue.min.js"></script>
+    <script src="/static/js/awesome.js"></script>
+
+    <!-- Codemirror 和 marked 依赖 -->
+    <link rel="stylesheet" href="codemirror/lib/codemirror.css">
+    <script src="codemirror/lib/codemirror.js"></script>
+    <script src="codemirror/mode/markdown/markdown.js"></script>
+    <script src="codemirror/addon/mode/overlay.js"></script>
+    <script src="codemirror/mode/xml/xml.js"></script>
+    <script src="codemirror/mode/gfm/gfm.js"></script>
+    <script src="marked.js"></script>
+
+    <!-- HTML 编辑器的 CSS 与 JavaScript -->
+    <link rel="stylesheet" href="htmleditor.css">
+    <script src="htmleditor.js"></script>
+    <script>
+    $(document).ready(function(){
+        $("#btn1").click(function(){
+            var title_val = $("#title").val();
+            var type_val = $("#type").val();
+            var text = $("#blogtext").val();
+            $.post("/postblog", {
+                "title":title_val,
+                "type":type_val,
+                "text":text
+            }, function(data, status){
+                alert("Data: " + data + "\nStatus: " + status);
+            });
+        });
+    });
+    </script>
+
+    <style>
+        #title_div
+        {
+            margin-left:auto;
+            margin-right:auto;
+            width:40%;
+        }
+        #title
+        {
+            margin-left:auto;
+            margin-right:auto;
+            width:100%;
+        }
+        #div_type
+        {
+            margin-left:auto;
+            margin-right:auto;
+            width:40%;
+        }
+        #type
+        {
+            maring-left:0px;
+            margin-right:auto;
+            width:50%;
+        }
+        #classify
+        {
+            maring-left:auto;
+            margin-right:0px;
+            width:50%;
+            float:left;
+        }
+        #div_text
+        {
+            margin-left:auto;
+            margin-right:auto;
+            width:40%;
+        }
+        #blogtext
+        {
+            margin-left:auto;
+            margin-right:auto;
+            width:100%;
+            height:800px;
+        }
+    </style>
+</head>
+
+<body class="uk-width-1-1" style="background-image:url(/static/img/back.png);background-size:cover">
+    <div class="uk-width-1-1 uk-margin-top uk-margin-left uk-margin-right">
+        <form class="uk-form">
+           <fieldset data-uk-margin class="uk-width-1-1">
+               <div class="uk-form-row" id="title_div">
+                   <input id="title" class="uk-width-1-5" type="text" placeholder="标题">
+               </div>
+               <div id="div_type">
+                   <select id="type" class="uk-width-1-10">
+                       <option>新博客</option>
+                       <option>转载</option>
+                       <option>日常</option>
+                   </select>
+                   <select id="classify" class="uk-width-1-10">
+                       <option>Linux</option>
+                       <option>Python</option>
+                       <option>DataStructure</option>
+                       <option>network</option>
+                   </select>
+               </div>
+               <div id="div_text">
+                   <textarea id="blogtext"></textarea>
+                   <button id="btn1" type="submit" style="margin-top:10px;margin-left:auto;margin-right:auto;width:100%;">提交</button>
+               </div>
+          </fieldset>
+        </form>
+    </div>
+    <div class="uk-htmleditor uk-clearfix" data-mode="split">
+        <div class="uk-htmleditor-navbar">
+            <ul class="uk-htmleditor-navbar-nav uk-htmleditor-toolbar"></ul>
+        </div>
+    </div>
+</body>
+
+</html>
